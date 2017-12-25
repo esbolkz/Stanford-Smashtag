@@ -4,7 +4,7 @@
 //
 //  Created by CS193p Instructor on 2/8/17.
 //  Copyright © 2017 Stanford University. All rights reserved.
-//
+//  Updated by Yesbol Kulanbekov
 
 import UIKit
 import Twitter
@@ -162,5 +162,3 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         return "\(tweets.count-section)"
     }
 }
-
-// Second Commit
