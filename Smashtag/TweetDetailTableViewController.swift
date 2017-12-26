@@ -10,6 +10,8 @@ import UIKit
 
 class TweetDetailTableViewController: UITableViewController {
 
+    var viewModel: TweetDetailViewModel? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,14 +21,26 @@ class TweetDetailTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 4
+        return (viewModel?.data.count)!
     }
-
+ 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 2
+        return (viewModel?.data[section].count)!
     }
+    
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
+        cell.textLabel?.text = viewModel?.data[indexPath.section][indexPath.row]
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Heeloo"
+    }
+    
+
 
 
 }

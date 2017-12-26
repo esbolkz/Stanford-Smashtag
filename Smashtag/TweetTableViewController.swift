@@ -149,7 +149,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         // and it can load up its UI through its outlets
         if let tweetCell = cell as? TweetTableViewCell {
             tweetCell.tweet = tweet
-        }
+         }
 
         return cell
     }
@@ -161,4 +161,22 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         // твитов из Twitter, если появляются Заголовки Секций
         return "\(tweets.count-section)"
     }
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let indexPath = tableView.indexPathForSelectedRow!
+        let tweet: Tweet = tweets[indexPath.section][indexPath.row]
+        if segue.identifier == "toDetail"{
+            
+            if let destinationVC = segue.destination as? TweetDetailTableViewController{
+                let viewModel = TweetDetailViewModel(with: tweet)
+                destinationVC.viewModel = viewModel
+            }
+            
+        }
+    
+    }
+    
+    
 }
