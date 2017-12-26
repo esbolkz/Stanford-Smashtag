@@ -9,16 +9,9 @@
 import UIKit
 
 class ImageTableViewCell: UITableViewCell {
-
-    
     @IBOutlet weak var imageViewOfCell: UIImageView!
-
-    
-    
-
-
 }
 
-protocol cellDataSource {
-    var image: UIImage { get }
+protocol CellDataSource {
+    var image: UIImage? { get }
 }

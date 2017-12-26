@@ -7,11 +7,21 @@
 //
 
 import Foundation
+import UIKit
 import Twitter
 
-struct TweetDetailViewModel {
+
+
+struct TweetDetailViewModel: CellDataSource {
     
-    var data: [[String]]{
+    private let tweet: Twitter.Tweet?
+    
+    init(with tweet: Twitter.Tweet) {
+        self.tweet = tweet
+    }
+    
+    
+    var mentions: [[String]]{
         get {
             var array = [[String]]()
             if let hashtags = tweet?.hashtags.map({ $0.keyword }){
@@ -35,12 +45,40 @@ struct TweetDetailViewModel {
         }
     }
     
-    
-    private let tweet: Twitter.Tweet?
-    
-    init(with tweet: Twitter.Tweet) {
-        self.tweet = tweet
+    var image: UIImage? {
+        get {
+            
+            if let medias = tweet?.media {
+                if !(medias.isEmpty){
+                    if let imageData = try? Data(contentsOf: medias[0].url) {
+                        return UIImage(data: imageData)!
+                    }
+                }
+
+            }
+            
+            
+            return nil
+        }
     }
+    
+    
+    var images: [UIImage] {
+        var imageTemp = [UIImage]()
+        if let medias = tweet?.media {
+            for media in medias {
+                if let imageData = try? Data(contentsOf: media.url) {
+                    imageTemp.append(UIImage(data: imageData)!)
+                }
+            }
+        }
+        return imageTemp
+
+        
+    }
+    
+    
+
     
     
 }
