@@ -20,8 +20,16 @@ struct TweetDetailViewModel: CellRepresentable {
         self.tweet = tweet
     }
     
-    var sectionCount: Int{
-        return mentions.count + 1
+    var sectionCount: Int {
+        return mentions.count + (images.isEmpty ? 0 : 1)
+    }
+    
+    func sectionName(section: Int) -> String {
+        if let tableSection = Section(rawValue: section){
+            return String(describing: tableSection).capitalized
+        } else {
+            return ""
+        }
     }
     
     
@@ -30,12 +38,14 @@ struct TweetDetailViewModel: CellRepresentable {
             switch tableSection {
             case .image:
                 return images.count
-            case .hashtag, .url, .userMention:
+            case .hashtags, .urls, .users:
                 return mentions[section - 1].count
             }
         }
         return nil
     }
+    
+    
     
     
     func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
@@ -49,7 +59,7 @@ struct TweetDetailViewModel: CellRepresentable {
                     cellU.imageViewOfCell.image = images[row]
                     return cellU
                 }
-            case .hashtag, .url, .userMention:
+            case .hashtags, .urls, .users:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
                 cell.textLabel?.text = mentions[section - 1][row] + " S: \(section) R: \(row)"
                 return cell
@@ -61,16 +71,16 @@ struct TweetDetailViewModel: CellRepresentable {
     }
     
     
-    var mentions: [[String]]{
+    private var mentions: [[String]]{
         get {
             var array = [[String]]()
-            if let hashtags = tweet?.hashtags.map({ $0.keyword }){
+            if let hashtags = tweet?.hashtags.map({ $0.keyword }), !(hashtags.isEmpty){
                 array.append(hashtags)
             }
-            if let urls = tweet?.urls.map({$0.keyword}) {
+            if let urls = tweet?.urls.map({$0.keyword}), !(urls.isEmpty) {
                 array.append(urls)
             }
-            if let userMentions = tweet?.userMentions.map({$0.keyword}) {
+            if let userMentions = tweet?.userMentions.map({$0.keyword}), !(userMentions.isEmpty) {
                 array.append(userMentions)
             }
             
@@ -79,12 +89,14 @@ struct TweetDetailViewModel: CellRepresentable {
     }
     
     
-    var images: [UIImage] {
+    private var images: [UIImage] {
         var imageTemp = [UIImage]()
         if let medias = tweet?.media {
             for media in medias {
                 if let imageData = try? Data(contentsOf: media.url) {
+                    
                     imageTemp.append(UIImage(data: imageData)!)
+                    
                 }
             }
         }
@@ -94,13 +106,6 @@ struct TweetDetailViewModel: CellRepresentable {
     
 }
 
-protocol CellRepresentable{
-    func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell
-}
 
-
-enum Section: Int {
-    case image = 0,hashtag,url,userMention
-}
 
 

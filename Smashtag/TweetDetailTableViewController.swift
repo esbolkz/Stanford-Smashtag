@@ -17,7 +17,6 @@ class TweetDetailTableViewController: UITableViewController {
         
     }
 
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -38,7 +37,7 @@ class TweetDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return String(section)
+        return viewModel?.sectionName(section: section)
     }
     
 
