@@ -21,70 +21,108 @@ struct TweetDetailViewModel: CellRepresentable {
     }
     
     var sectionCount: Int {
-        return mentions.count + (images.isEmpty ? 0 : 1)
+        return mentions.count + 1//(images.isEmpty ? 0 : 1)
+    }
+    
+    func rowCount(section: Int) -> Int? {
+//        if let tableSection = Section(rawValue: section){
+//            switch tableSection {
+//            case .image:
+//                return 1//images.count
+//            case .hashtags, .urls, .users:
+//                return mentions[tableSection]?.count ?? 0
+//            }
+//        }
+//        return nil
+        
+        if section == 0{
+            return 1
+        } else {
+            return mentions[Section(rawValue: (section + 1))!]?.count ?? 0
+        }
+        
+        
     }
     
     func sectionName(section: Int) -> String {
-        if let tableSection = Section(rawValue: section){
-            return String(describing: tableSection).capitalized
-        } else {
-            return ""
-        }
+//        if let tableSection = Section(rawValue: section){
+//            return String(describing: tableSection).capitalized
+//        } else {
+//            return ""
+//        }
+        return "\(section + 1)"
     }
-    
-    
-    func rowCount(section: Int) -> Int? {
-        if let tableSection = Section(rawValue: section){
-            switch tableSection {
-            case .image:
-                return images.count
-            case .hashtags, .urls, .users:
-                return mentions[section - 1].count
-            }
-        }
-        return nil
-    }
-    
     
     
     
     func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         let section = indexPath.section
         let row = indexPath.row
-        if let tableSection = Section(rawValue: section){
-            switch tableSection {
-            case .image:
-                let imageCell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath)
-                if let cellU = imageCell as? ImageTableViewCell{
-                    cellU.imageViewOfCell.image = images[row]
-                    return cellU
-                }
-            case .hashtags, .urls, .users:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
-                cell.textLabel?.text = mentions[section - 1][row] + " S: \(section) R: \(row)"
-                return cell
+//        if let tableSection = Section(rawValue: section){
+//            switch tableSection {
+//            case .image:
+//                let imageCell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath)
+//                if let cellU = imageCell as? ImageTableViewCell{
+//                    //DispatchQueue.main.async {
+//                        cellU.imageViewOfCell.image = UIImage(named: "cat")//self.images[row]
+//
+//                    //}
+//                    return cellU
+//                }
+//            case .hashtags, .urls, .users:
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
+//                cell.textLabel?.text = (mentions[tableSection]?[row])! // + " S: \(section) R: \(row)"
+//                //cell.textLabel?.text = " S: \(section) R: \(row)"
+//                return cell
+//            }
+//            
+//
+//            
+//        }
+        
+        
+        if section == 0 {
+            let imageCell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath)
+            if let cellU = imageCell as? ImageTableViewCell{
+                //DispatchQueue.main.async {
+                cellU.imageViewOfCell.image = UIImage(named: "cat")//self.images[row]
+                
+                //}
+                return cellU
             }
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
+            cell.textLabel?.text = (mentions[Section(rawValue: (section + 1))!]?[row])!
+            // + " S: \(section) R: \(row)"
+            //cell.textLabel?.text = " S: \(section) R: \(row)"
+            return cell
         }
+        
+        
+        
+        
+        
         
         return UITableViewCell()
         
     }
     
     
-    private var mentions: [[String]]{
+    private var mentions: [Section: [String]]{
         get {
-            var array = [[String]]()
+            var dictionary = [Section: [String]]()
+            
             if let hashtags = tweet?.hashtags.map({ $0.keyword }), !(hashtags.isEmpty){
-                array.append(hashtags)
+                dictionary[Section.hashtags] = hashtags
             }
             if let urls = tweet?.urls.map({$0.keyword}), !(urls.isEmpty) {
-                array.append(urls)
+                dictionary[Section.urls] = urls
             }
             if let userMentions = tweet?.userMentions.map({$0.keyword}), !(userMentions.isEmpty) {
-                array.append(userMentions)
+                dictionary[Section.users] = userMentions
             }
             
-            return array
+            return dictionary
         }
     }
     
@@ -94,10 +132,10 @@ struct TweetDetailViewModel: CellRepresentable {
         if let medias = tweet?.media {
             for media in medias {
                 if let imageData = try? Data(contentsOf: media.url) {
-                    
                     imageTemp.append(UIImage(data: imageData)!)
-                    
                 }
+                
+                
             }
         }
         return imageTemp
