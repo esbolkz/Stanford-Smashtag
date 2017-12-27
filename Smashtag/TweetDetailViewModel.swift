@@ -88,8 +88,7 @@ struct ImageCellViewModel: CellRepresentable {
     func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         let imageCell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath)
         if let cellU = imageCell as? ImageTableViewCell{
-            //cellU.imageViewOfCell.image = UIImage(named: "cat") //self.images[row]
-            cellU.textLabel?.text = "Image"
+            cellU.imageViewOfCell.image = UIImage(named: "cat")
         }
         return imageCell
     }
