@@ -12,6 +12,3 @@ class ImageTableViewCell: UITableViewCell {
     @IBOutlet weak var imageViewOfCell: UIImageView!
 }
 
-protocol CellDataSource {
-    var image: UIImage? { get }
-}

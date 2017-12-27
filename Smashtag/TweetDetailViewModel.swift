@@ -12,12 +12,52 @@ import Twitter
 
 
 
-struct TweetDetailViewModel: CellDataSource {
+struct TweetDetailViewModel: CellRepresentable {
     
     private let tweet: Twitter.Tweet?
     
     init(with tweet: Twitter.Tweet) {
         self.tweet = tweet
+    }
+    
+    var sectionCount: Int{
+        return mentions.count + 1
+    }
+    
+    
+    func rowCount(section: Int) -> Int? {
+        if let tableSection = Section(rawValue: section){
+            switch tableSection {
+            case .image:
+                return images.count
+            case .hashtag, .url, .userMention:
+                return mentions[section - 1].count
+            }
+        }
+        return nil
+    }
+    
+    
+    func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        let section = indexPath.section
+        let row = indexPath.row
+        if let tableSection = Section(rawValue: section){
+            switch tableSection {
+            case .image:
+                let imageCell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath)
+                if let cellU = imageCell as? ImageTableViewCell{
+                    cellU.imageViewOfCell.image = images[row]
+                    return cellU
+                }
+            case .hashtag, .url, .userMention:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
+                cell.textLabel?.text = mentions[section - 1][row] + " S: \(section) R: \(row)"
+                return cell
+            }
+        }
+        
+        return UITableViewCell()
+        
     }
     
     
@@ -39,30 +79,6 @@ struct TweetDetailViewModel: CellDataSource {
     }
     
     
-    var dict: [String: [String]] {
-        get {
-            return [String: [String]]()
-        }
-    }
-    
-    var image: UIImage? {
-        get {
-            
-            if let medias = tweet?.media {
-                if !(medias.isEmpty){
-                    if let imageData = try? Data(contentsOf: medias[0].url) {
-                        return UIImage(data: imageData)!
-                    }
-                }
-
-            }
-            
-            
-            return nil
-        }
-    }
-    
-    
     var images: [UIImage] {
         var imageTemp = [UIImage]()
         if let medias = tweet?.media {
@@ -73,12 +89,18 @@ struct TweetDetailViewModel: CellDataSource {
             }
         }
         return imageTemp
-
-        
     }
     
     
-
-    
-    
 }
+
+protocol CellRepresentable{
+    func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell
+}
+
+
+enum Section: Int {
+    case image = 0,hashtag,url,userMention
+}
+
+

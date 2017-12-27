@@ -21,33 +21,19 @@ class TweetDetailTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1 + (viewModel?.mentions.count)!
+        return (viewModel?.sectionCount)!
     }
  
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
-            return 1
-        }
-        return (viewModel?.mentions[section - 1].count)!
+        return (viewModel?.rowCount(section: section))!
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
-        
-        if indexPath.section == 0 {
-            let imageCell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath)
-            if let cellU = imageCell as? ImageTableViewCell{
-                cellU.imageViewOfCell.image = viewModel?.image
-                return cellU
-            }
-        } else {
-            cell.textLabel?.text = viewModel?.mentions[(indexPath.section) - 1][indexPath.row]
 
+        guard let cell = viewModel?.cellInstance(tableView,indexPath: indexPath) else {
+            return UITableViewCell()
         }
-        
-
-
         return cell
     }
     
@@ -56,6 +42,7 @@ class TweetDetailTableViewController: UITableViewController {
     }
     
 
-
-
 }
+
+
+
