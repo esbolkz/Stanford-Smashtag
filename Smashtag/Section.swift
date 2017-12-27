@@ -8,6 +8,7 @@
 
 import Foundation
 
-enum Section: Int {
-    case image = 0,hashtags,urls,users
+struct Section {
+    var name: String
+    var viewModels: [CellRepresentable]
 }

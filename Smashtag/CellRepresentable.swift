@@ -9,7 +9,9 @@
 import Foundation
 import UIKit
 
-protocol CellRepresentable{
+
+protocol CellRepresentable {
+    var text : String { get  }
+    var url : URL { get }
     func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell
 }
-
