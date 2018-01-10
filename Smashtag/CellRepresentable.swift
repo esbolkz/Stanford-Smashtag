@@ -13,5 +13,6 @@ import UIKit
 protocol CellRepresentable {
     var text : String { get  }
     var url : URL { get }
+    var cellHeight: CGFloat { get }
     func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell
 }

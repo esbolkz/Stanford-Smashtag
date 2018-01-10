@@ -20,11 +20,14 @@ struct TweetDetailViewModel {
         self.tweet = tweet
         self.sections = [Section]()
         
-        let images = tweet.media.map{ return ImageCellViewModel(url: $0.url)}
+        let images = tweet.media.map{ media -> ImageCellViewModel in
+            let aspectRatio = media.aspectRatio
+            return ImageCellViewModel(url: media.url, aspectRatio: aspectRatio)
+        }
         let hashtags = tweet.hashtags.map{ return TextCellViewModel(text: $0.keyword)}
         let urls = tweet.urls.map{ return TextCellViewModel(text: $0.keyword)}
         let users = tweet.userMentions.map{ return TextCellViewModel(text: $0.keyword)}
-
+        
         if !images.isEmpty{
             sections.append(Section(name: "Images", viewModels: images))
         }
@@ -38,7 +41,7 @@ struct TweetDetailViewModel {
             sections.append(Section(name: "Users", viewModels: users))
         }
         
-
+        
     }
     
     var sectionCount: Int {
@@ -47,6 +50,12 @@ struct TweetDetailViewModel {
     
     func rowCount(section: Int) -> Int? {
         return sections[section].viewModels.count
+    }
+    
+    func heightForRow(indexPath: IndexPath) -> CGFloat {
+        let section = indexPath.section
+        let row = indexPath.row
+        return sections[section].viewModels[row].cellHeight
     }
     
     func sectionName(section: Int) -> String {
@@ -59,8 +68,8 @@ struct TweetDetailViewModel {
         let cell = sections[section].viewModels[row].cellInstance(tableView, indexPath: indexPath)
         return cell
     }
-
-
+    
+    
     
 }
 
@@ -69,6 +78,10 @@ struct TweetDetailViewModel {
 
 struct TextCellViewModel: CellRepresentable {
     var text: String
+    
+    var cellHeight: CGFloat {
+        return Constants.standardCellHeight
+    }
     func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
         cell.textLabel?.text = text
@@ -85,10 +98,21 @@ extension TextCellViewModel {
 
 struct ImageCellViewModel: CellRepresentable {
     var url: URL
+    var aspectRatio: Double
+    
+    var cellHeight: CGFloat {
+        return CGFloat(359/aspectRatio)
+    }
+    
     func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         let imageCell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath)
         if let cellU = imageCell as? ImageTableViewCell{
-            cellU.imageViewOfCell.image = UIImage(named: "cat")
+            let imageLoader = ImageLoader()
+            imageLoader.downloadImage(url: self.url, onCompletion: { imageData in
+                DispatchQueue.main.async {
+                    cellU.imageViewOfCell.image = UIImage(data: imageData)
+                }
+            })
         }
         return imageCell
     }

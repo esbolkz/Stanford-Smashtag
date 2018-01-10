@@ -128,22 +128,22 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImageCell" rowHeight="283" id="XEN-KB-tcn" customClass="ImageTableViewCell" customModule="Smashtag" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="375" height="283"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImageCell" rowHeight="160" id="XEN-KB-tcn" customClass="ImageTableViewCell" customModule="Smashtag" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="160"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XEN-KB-tcn" id="qN0-GF-gQo">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="283"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i0X-Ud-Hri">
-                                            <rect key="frame" x="8" y="8" width="359" height="267"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i0X-Ud-Hri">
+                                            <rect key="frame" x="8" y="8" width="359" height="143.5"/>
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="i0X-Ud-Hri" firstAttribute="centerY" secondItem="qN0-GF-gQo" secondAttribute="centerY" id="Um0-85-us0"/>
-                                        <constraint firstItem="i0X-Ud-Hri" firstAttribute="trailing" secondItem="qN0-GF-gQo" secondAttribute="trailingMargin" id="foQ-3R-0YW"/>
-                                        <constraint firstItem="i0X-Ud-Hri" firstAttribute="leading" secondItem="qN0-GF-gQo" secondAttribute="leadingMargin" id="hLQ-N3-GNf"/>
-                                        <constraint firstItem="i0X-Ud-Hri" firstAttribute="top" secondItem="qN0-GF-gQo" secondAttribute="topMargin" id="wT4-lM-bjY"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="i0X-Ud-Hri" secondAttribute="bottom" id="f2L-wy-JZ7"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="i0X-Ud-Hri" secondAttribute="trailing" id="iME-Sq-KdY"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="i0X-Ud-Hri" secondAttribute="leading" id="qbO-93-mlT"/>
+                                        <constraint firstAttribute="topMargin" secondItem="i0X-Ud-Hri" secondAttribute="top" id="sCY-YJ-ukD"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

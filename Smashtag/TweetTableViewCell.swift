@@ -16,7 +16,7 @@ class TweetTableViewCell: UITableViewCell
     @IBOutlet weak var tweetCreatedLabel: UILabel!
     @IBOutlet weak var tweetUserLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
-
+    
     // public API of this UITableViewCell subclass
     // each row in the table has its own instance of this class
     // and each instance will have its own tweet to show
@@ -31,7 +31,7 @@ class TweetTableViewCell: UITableViewCell
         
         if let tweetText = tweet?.text {
             let attributedText = NSMutableAttributedString(string: tweetText)
-
+            
             if let hashTags = tweet?.hashtags {
                 for hashTag in hashTags {
                     attributedText.addAttribute(NSForegroundColorAttributeName,
@@ -55,7 +55,7 @@ class TweetTableViewCell: UITableViewCell
                                                 range: userMention.nsrange)
                 }
             }
-        
+            
             
             
             tweetTextLabel?.attributedText = attributedText
@@ -63,12 +63,19 @@ class TweetTableViewCell: UITableViewCell
         
         
         if let profileImageURL = tweet?.user.profileImageURL {
-            DispatchQueue.main.async {
-                if let imageData = try? Data(contentsOf: profileImageURL) {
-                    self.tweetProfileImageView?.image = UIImage(data: imageData)
-                }
-            }
+            
+            let imageLoader = ImageLoader()
+            imageLoader.downloadImage(url: profileImageURL, onCompletion: { imageData in
+                print("Main page thread ",Thread.current)
 
+                DispatchQueue.main.async {
+                    self.tweetProfileImageView?.image = UIImage(data: imageData)
+                    
+                }
+            })
+            
+            
+            
         } else {
             tweetProfileImageView?.image = nil
         }

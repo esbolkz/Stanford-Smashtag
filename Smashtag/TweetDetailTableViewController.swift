@@ -11,10 +11,8 @@ import UIKit
 class TweetDetailTableViewController: UITableViewController {
 
     var viewModel: TweetDetailViewModel? = nil
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-    
         
     }
 
@@ -37,11 +35,18 @@ class TweetDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        return viewModel?.heightForRow(indexPath: indexPath) ?? Constants.standardCellHeight
     }
     
 
 }
+
+struct Constants {
+    static let standardCellHeight: CGFloat = 40
+}
+
+
+
 
 
 
