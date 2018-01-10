@@ -66,15 +66,11 @@ class TweetTableViewCell: UITableViewCell
             
             let imageLoader = ImageLoader()
             imageLoader.downloadImage(url: profileImageURL, onCompletion: { imageData in
-                print("Main page thread ",Thread.current)
-
                 DispatchQueue.main.async {
                     self.tweetProfileImageView?.image = UIImage(data: imageData)
                     
                 }
             })
-            
-            
             
         } else {
             tweetProfileImageView?.image = nil
