@@ -38,8 +38,21 @@ class TweetDetailTableViewController: UITableViewController {
         return viewModel?.heightForRow(indexPath: indexPath) ?? Constants.standardCellHeight
     }
     
-
 }
+
+extension TweetDetailTableViewController {
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        let text = (cell?.textLabel?.text)!
+        let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let tweetSearchController = storyBoard.instantiateViewController(withIdentifier: "tweetSearchVC") as! TweetTableViewController
+        tweetSearchController.searchText = text
+        self.navigationController?.pushViewController(tweetSearchController, animated: true)
+    }
+}
+
+
 
 struct Constants {
     static let standardCellHeight: CGFloat = 40

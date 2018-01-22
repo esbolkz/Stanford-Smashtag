@@ -20,7 +20,7 @@ class ImageLoader {
     func downloadImage(url: URL, onCompletion: @escaping (Data) -> (Void) ) {
         getDataFromUrl(url: url) { data, response, error in
             guard let data = data, error == nil else { return }
-            print(response?.suggestedFilename ?? url.lastPathComponent)
+            //print(response?.suggestedFilename ?? url.lastPathComponent)
             onCompletion(data)
         }
     }
