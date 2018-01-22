@@ -99,6 +99,8 @@ struct TextCellViewModel: CellRepresentable {
 
 
 
+
+
 struct ImageCellViewModel: CellRepresentable {
     var url: URL
     var aspectRatio: Double

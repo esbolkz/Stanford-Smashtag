@@ -11,12 +11,15 @@ import UIKit
 class ImageViewController: UIViewController {
 
     var image = UIImage()
+    var aspectRatio: Double = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        let imageView = UIImageView(image: image)
         
+        
+        
+        let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
         
@@ -24,6 +27,8 @@ class ImageViewController: UIViewController {
         imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         //imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        let aspectRatioCGFloat = CGFloat(aspectRatio)
+        imageView.heightAnchor.constraint(equalToConstant: (view.frame.width)/aspectRatioCGFloat)
         imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
     }

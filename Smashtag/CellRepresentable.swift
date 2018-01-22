@@ -15,8 +15,27 @@ protocol CellRepresentable {
     var url : URL { get }
     var cellHeight: CGFloat { get }
     var dataType: DataType { get }
+    var aspectRatio: Double { get }
     func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell
 }
+
+
+extension CellRepresentable {
+    var url : URL {
+        return URL(string: "")!
+    }
+    
+    var text : String {
+        return ""
+    }
+    
+    var aspectRatio: Double {
+        return 0
+    }
+}
+
+
+
 
 
 enum DataType {

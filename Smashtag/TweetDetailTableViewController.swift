@@ -61,8 +61,7 @@ extension TweetDetailTableViewController {
             let cell = tableView.cellForRow(at: indexPath)
             if let imageViewCell = cell as? ImageTableViewCell,
                let image = imageViewCell.imageViewOfCell.image {
-                //let aspectRatio = cellData.
-                router.presentImageView(with: image, from: self)
+                router.presentImageView(with: image, for: cellData.aspectRatio, from: self)
             }
         case .url:
             router.presentWebPage(with: cellData.text, from: self)

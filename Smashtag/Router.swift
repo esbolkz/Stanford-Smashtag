@@ -19,10 +19,11 @@ struct Router {
         vc.navigationController?.pushViewController(tweetSearchController, animated: true)
     }
     
-    func presentImageView(with image : UIImage, from vc: UIViewController){
+    func presentImageView(with image : UIImage, for aspectRatio: Double, from vc: UIViewController){
         print("Present image view")
         let imageViewController = ImageViewController()
         imageViewController.image = image
+        imageViewController.aspectRatio = aspectRatio
         vc.navigationController?.pushViewController(imageViewController, animated: true)
     }
     
