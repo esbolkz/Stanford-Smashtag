@@ -22,11 +22,12 @@ struct TweetDetailViewModel {
         
         let images = tweet.media.map{ media -> ImageCellViewModel in
             let aspectRatio = media.aspectRatio
-            return ImageCellViewModel(url: media.url, aspectRatio: aspectRatio)
+            return ImageCellViewModel(url: media.url, aspectRatio: aspectRatio, dataType: .image)
         }
-        let hashtags = tweet.hashtags.map{ return TextCellViewModel(text: $0.keyword)}
-        let urls = tweet.urls.map{ return TextCellViewModel(text: $0.keyword)}
-        let users = tweet.userMentions.map{ return TextCellViewModel(text: $0.keyword)}
+        let hashtags = tweet.hashtags.map{ return TextCellViewModel(text: $0.keyword, dataType: .hashtag)}
+        let urls = tweet.urls.map{ return TextCellViewModel(text: $0.keyword, dataType: .url)}
+        let users = tweet.userMentions.map{ return TextCellViewModel(text: $0.keyword, dataType: .userMention)}
+        
         
         if !images.isEmpty{
             sections.append(Section(name: "Images", viewModels: images))
@@ -70,6 +71,12 @@ struct TweetDetailViewModel {
     }
     
     
+    func viewModelForIndexPath(_ tableView: UITableView, indexPath: IndexPath) -> CellRepresentable {
+        return sections[indexPath.section].viewModels[indexPath.row]
+    }
+    
+    
+    
     
 }
 
@@ -78,6 +85,7 @@ struct TweetDetailViewModel {
 
 struct TextCellViewModel: CellRepresentable {
     var text: String
+    var dataType: DataType
     
     var cellHeight: CGFloat {
         return Constants.standardCellHeight
@@ -99,7 +107,8 @@ extension TextCellViewModel {
 struct ImageCellViewModel: CellRepresentable {
     var url: URL
     var aspectRatio: Double
-    
+    var dataType: DataType
+
     var cellHeight: CGFloat {
         return CGFloat(359/aspectRatio)
     }

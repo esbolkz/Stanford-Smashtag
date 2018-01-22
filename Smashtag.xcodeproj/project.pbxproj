@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		448C216F2015F43B00D495AF /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448C216E2015F43B00D495AF /* Router.swift */; };
 		C80C83201FF210C100096D0A /* TweetDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80C831F1FF210C100096D0A /* TweetDetailViewModel.swift */; };
 		C80C83271FF2536100096D0A /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C80C83261FF2536100096D0A /* ImageTableViewCell.swift */; };
 		C81F34FA200612F7000850E8 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81F34F9200612F7000850E8 /* ImageLoader.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		448C216E2015F43B00D495AF /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		C80C831F1FF210C100096D0A /* TweetDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetDetailViewModel.swift; sourceTree = "<group>"; };
 		C80C83261FF2536100096D0A /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		C81F34F9200612F7000850E8 /* ImageLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				C8AE83711FF12507009E68BC /* TweetDetailTableViewController.swift */,
 				C80C831F1FF210C100096D0A /* TweetDetailViewModel.swift */,
 				C80C83261FF2536100096D0A /* ImageTableViewCell.swift */,
+				448C216E2015F43B00D495AF /* Router.swift */,
 			);
 			name = TweetDetailScreen;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 			files = (
 				C80C83201FF210C100096D0A /* TweetDetailViewModel.swift in Sources */,
 				EC7D5EBF1E4BF94B009A2E85 /* AppDelegate.swift in Sources */,
+				448C216F2015F43B00D495AF /* Router.swift in Sources */,
 				EC7D5ED21E4BF992009A2E85 /* TweetTableViewController.swift in Sources */,
 				C80C83271FF2536100096D0A /* ImageTableViewCell.swift in Sources */,
 				C8AE83721FF12507009E68BC /* TweetDetailTableViewController.swift in Sources */,

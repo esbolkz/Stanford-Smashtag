@@ -14,5 +14,11 @@ protocol CellRepresentable {
     var text : String { get  }
     var url : URL { get }
     var cellHeight: CGFloat { get }
+    var dataType: DataType { get }
     func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell
+}
+
+
+enum DataType {
+    case url, hashtag, userMention, image
 }

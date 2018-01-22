@@ -11,6 +11,9 @@ import UIKit
 class TweetDetailTableViewController: UITableViewController {
 
     var viewModel: TweetDetailViewModel? = nil
+    let router = Router()
+        
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
@@ -43,12 +46,29 @@ class TweetDetailTableViewController: UITableViewController {
 extension TweetDetailTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath)
-        let text = (cell?.textLabel?.text)!
-        let storyBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let tweetSearchController = storyBoard.instantiateViewController(withIdentifier: "tweetSearchVC") as! TweetTableViewController
-        tweetSearchController.searchText = text
-        self.navigationController?.pushViewController(tweetSearchController, animated: true)
+        
+
+        
+        
+        guard let cellData: CellRepresentable = viewModel?.viewModelForIndexPath(tableView, indexPath: indexPath) else { return }
+        let dataType: DataType = cellData.dataType
+        
+        
+        switch dataType {
+        case .hashtag, .userMention:
+            router.presentMainSearch(with: cellData.text, from: self)
+        case .image:
+            let cell = tableView.cellForRow(at: indexPath)
+            if let imageViewCell = cell as? ImageTableViewCell,
+               let image = imageViewCell.imageViewOfCell.image {
+                router.presentImageView(with: image, from: self)
+            }
+        case .url:
+            router.presentWebPage(with: cellData.text, from: self)
+        }
+        
+        
+    
     }
 }
 
