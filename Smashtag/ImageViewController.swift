@@ -21,6 +21,7 @@ class ImageViewController: UIViewController {
         
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
         view.addSubview(imageView)
         
         
