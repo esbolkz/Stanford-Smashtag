@@ -67,19 +67,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C86BDB7B1FF386C000D52EBC /* Protocols */ = {
+		448C216D2015EB6500D495AF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C81F34F9200612F7000850E8 /* ImageLoader.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		C86BDB7B1FF386C000D52EBC /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				C86BDB7C1FF3870000D52EBC /* CellRepresentable.swift */,
 				C86BDB7E1FF3874100D52EBC /* Section.swift */,
 			);
-			name = Protocols;
+			name = Models;
 			sourceTree = "<group>";
 		};
 		C8AE83701FF124BB009E68BC /* TweetDetailScreen */ = {
 			isa = PBXGroup;
 			children = (
-				C86BDB7B1FF386C000D52EBC /* Protocols */,
 				C8AE83711FF12507009E68BC /* TweetDetailTableViewController.swift */,
 				C80C831F1FF210C100096D0A /* TweetDetailViewModel.swift */,
 				C80C83261FF2536100096D0A /* ImageTableViewCell.swift */,
@@ -92,7 +99,6 @@
 			children = (
 				EC7D5ED71E4C0239009A2E85 /* TweetTableViewCell.swift */,
 				EC7D5ED11E4BF992009A2E85 /* TweetTableViewController.swift */,
-				C81F34F9200612F7000850E8 /* ImageLoader.swift */,
 			);
 			name = MainScreen;
 			sourceTree = "<group>";
@@ -117,9 +123,11 @@
 		EC7D5EBD1E4BF94B009A2E85 /* Smashtag */ = {
 			isa = PBXGroup;
 			children = (
-				EC7D5EC21E4BF94B009A2E85 /* Main.storyboard */,
 				EC7D5ECA1E4BF94B009A2E85 /* Info.plist */,
+				EC7D5EC21E4BF94B009A2E85 /* Main.storyboard */,
 				EC7D5ED01E4BF956009A2E85 /* Supporting Files */,
+				448C216D2015EB6500D495AF /* Services */,
+				C86BDB7B1FF386C000D52EBC /* Models */,
 				C8AE83741FF1251B009E68BC /* MainScreen */,
 				C8AE83701FF124BB009E68BC /* TweetDetailScreen */,
 			);
