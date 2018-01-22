@@ -38,7 +38,7 @@ class TweetDetailTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return viewModel?.heightForRow(indexPath: indexPath) ?? Constants.standardCellHeight
+        return viewModel?.heightForRow(indexPath: indexPath) ?? UITableViewAutomaticDimension
     }
     
 }
@@ -67,17 +67,9 @@ extension TweetDetailTableViewController {
             router.presentWebPage(with: cellData.text, from: self)
         }
         
-        
     
     }
 }
-
-
-
-struct Constants {
-    static let standardCellHeight: CGFloat = 40
-}
-
 
 
 

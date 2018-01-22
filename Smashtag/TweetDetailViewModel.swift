@@ -88,7 +88,7 @@ struct TextCellViewModel: CellRepresentable {
     var dataType: DataType
     
     var cellHeight: CGFloat {
-        return Constants.standardCellHeight
+        return UITableViewAutomaticDimension
     }
     func cellInstance(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath)
