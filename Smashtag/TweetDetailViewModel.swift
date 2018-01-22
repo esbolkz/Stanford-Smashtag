@@ -97,11 +97,6 @@ struct TextCellViewModel: CellRepresentable {
     }
 }
 
-extension TextCellViewModel {
-    var url : URL {
-        return URL(string: "")!
-    }
-}
 
 
 struct ImageCellViewModel: CellRepresentable {
@@ -127,11 +122,6 @@ struct ImageCellViewModel: CellRepresentable {
     }
 }
 
-extension ImageCellViewModel {
-    var text : String {
-        return ""
-    }
-}
 
 
 

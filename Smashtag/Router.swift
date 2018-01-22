@@ -21,6 +21,9 @@ struct Router {
     
     func presentImageView(with image : UIImage, from vc: UIViewController){
         print("Present image view")
+        let imageViewController = ImageViewController()
+        imageViewController.image = image
+        vc.navigationController?.pushViewController(imageViewController, animated: true)
     }
     
     func presentWebPage(with url: String, from vc: UIViewController) {
